@@ -1,0 +1,67 @@
+@baseUrl = http://localhost:3000/api
+
+# Cadastrar um novo Autor
+
+@authorId = {{createAuthor.response.body._id}}
+POST {{baseUrl}}/authors
+Content-Type: application/json
+
+{
+  "name": "J. R. R. Tolkien",
+  "birthDate": "1892-01-03",
+  "sex": "Masculino",
+  "writingGenre": "Fantasy"
+}
+
+# Listar todos os Autores
+GET {{baseUrl}}/authors
+
+
+# Cadastrar um novo Usuário
+@userId = {{createUser.response.body._id}}
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "name": "Maria Silva",
+  "birthDate": "1995-05-10",
+  "sex": "Feminino",
+  "address": "Rua dos Bobos, 0"
+}
+
+# Listar todos os Usuários
+GET {{baseUrl}}/users
+
+
+# Cadastrar um novo Livro
+@bookId = {{createBook.response.body._id}}
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "O Hobbit",
+  "synopsis": "Uma aventura inesperada de um hobbit.",
+  "year": 1937,
+  "author": "{{authorId}}"
+}
+
+# Listar todos os Livros
+GET {{baseUrl}}/books
+
+# Realizar um Empréstimo
+POST {{baseUrl}}/loans
+Content-Type: application/json
+
+{
+  "bookId": "{{bookId}}",
+  "userId": "{{userId}}"
+}
+
+# Tentar emprestar o mesmo livro (deve falhar)
+POST {{baseUrl}}/loans
+Content-Type: application/json
+
+{
+  "bookId": "{{bookId}}",
+  "userId": "{{userId}}"
+}
